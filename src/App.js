@@ -5,6 +5,7 @@ import abi from "./utils/WavePortal.json";
 
 const App = () => {
   const [currentAccount, setCurrentAccount] = useState("");
+  const [waveMessage, setWaveMessage] = useState("");
   const [allWaves, setAllWaves] = useState([]);
   const contractAddress = "0x7C7ebb858a5c2b2B93CCAf8Da3155D84A97d9929";
   const contractABI = abi.abi;
@@ -78,7 +79,7 @@ const App = () => {
         /*
          * Execute the actual wave from your smart contract
          */
-        const waveTxn = await wavePortalContract.wave("this is a message");
+        const waveTxn = await wavePortalContract.wave(waveMessage);
         console.log("Mining...", waveTxn.hash);
 
         await waveTxn.wait();
@@ -149,9 +150,15 @@ const App = () => {
         <div className="header">👋 Hey there!</div>
 
         <div className="bio">
-          I am farza and I worked on self-driving cars so that's pretty cool
-          right? Connect your Ethereum wallet and wave at me!
+          I am Dade and I worked on Web3! Connect your Ethereum wallet and wave
+          at me!
         </div>
+
+        <textarea
+          className="waveMessage"
+          value={waveMessage}
+          onChange={(event) => setWaveMessage(event.target.value)}
+        />
 
         <button className="waveButton" onClick={wave}>
           Wave at Me
